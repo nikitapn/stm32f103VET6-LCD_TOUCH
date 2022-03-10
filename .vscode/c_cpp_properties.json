@@ -10,7 +10,9 @@
                 "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
                 "${workspaceFolder}/Drivers/STM32F1xx_HAL_Driver/Inc",
 								"${workspaceFolder}/Drivers/CMSIS/Core/Include",
-                "${workspaceFolder}/Core/Inc"
+                "${workspaceFolder}/Core/Inc",
+								"${workspaceFolder}/FreeRTOS/include",
+								"${workspaceFolder}/FreeRTOS/ARM_CM3"
             ],
             "defines": [
                 "__STDC_HOSTED__=0", "DSTM32F103xE", "STM32F103xE" 

@@ -54,7 +54,17 @@ Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c \
-Core/Src/system_stm32f1xx.c  
+Core/Src/system_stm32f1xx.c  \
+FreeRTOS/ARM_CM3/port.c \
+FreeRTOS/tasks.c \
+FreeRTOS/timers.c \
+FreeRTOS/queue.c \
+FreeRTOS/list.c \
+FreeRTOS/event_groups.c \
+FreeRTOS/stream_buffer.c \
+FreeRTOS/MemMang/heap_3.c
+
+
 
 # ASM sources
 ASM_SOURCES =  \
@@ -115,7 +125,9 @@ C_INCLUDES =  \
 -IDrivers/STM32F1xx_HAL_Driver/Inc \
 -IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy \
 -IDrivers/CMSIS/Device/ST/STM32F1xx/Include \
--IDrivers/CMSIS/Include
+-IDrivers/CMSIS/Include \
+-IFreeRTOS/include \
+-IFreeRTOS/ARM_CM3
 
 
 # compile gcc flags
