@@ -2,6 +2,10 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#include "stm32f1xx_hal_sram.h"
+#include "stm32f1xx_ll_fsmc.h"
+
+SRAM_HandleTypeDef hsram1;
 RTC_HandleTypeDef hrtc;
 
 void vApplicationStackOverflowHook(TaskHandle_t pxTask, char *pcTaskName)
@@ -101,21 +105,34 @@ static void MX_RTC_Init(void)
  */
 static void MX_GPIO_Init(void)
 {
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-	/* GPIO Ports Clock Enable */
-	__HAL_RCC_GPIOC_CLK_ENABLE();
-	__HAL_RCC_GPIOA_CLK_ENABLE();
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 
-	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+  /*Configure GPIO pin Output Level */
+//  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_RESET);
 
-	/*Configure GPIO pin : PC6 */
-	GPIO_InitStruct.Pin = GPIO_PIN_6;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-	HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PE2 */
+//  GPIO_InitStruct.Pin = GPIO_PIN_2;
+//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+//  GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+//  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PC6 */
+  GPIO_InitStruct.Pin = GPIO_PIN_6;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */
@@ -174,6 +191,63 @@ void vTask1(void *pvParameters)
 	}
 }
 
+/* FSMC initialization function */
+//static void MX_FSMC_Init(void)
+//{
+//
+//  /* USER CODE BEGIN FSMC_Init 0 */
+//
+//  /* USER CODE END FSMC_Init 0 */
+//
+//  FSMC_NORSRAM_TimingTypeDef Timing = {0};
+//
+//  /* USER CODE BEGIN FSMC_Init 1 */
+//
+//  /* USER CODE END FSMC_Init 1 */
+//
+//  /** Perform the SRAM1 memory initialization sequence
+//  */
+//  hsram1.Instance = FSMC_NORSRAM_DEVICE;
+//  hsram1.Extended = FSMC_NORSRAM_EXTENDED_DEVICE;
+//  /* hsram1.Init */
+//  hsram1.Init.NSBank = FSMC_NORSRAM_BANK1;
+//  hsram1.Init.DataAddressMux = FSMC_DATA_ADDRESS_MUX_DISABLE;
+//  hsram1.Init.MemoryType = FSMC_MEMORY_TYPE_NOR;
+//  hsram1.Init.MemoryDataWidth = FSMC_NORSRAM_MEM_BUS_WIDTH_16;
+//  hsram1.Init.BurstAccessMode = FSMC_BURST_ACCESS_MODE_DISABLE;
+//  hsram1.Init.WaitSignalPolarity = FSMC_WAIT_SIGNAL_POLARITY_LOW;
+//  hsram1.Init.WrapMode = FSMC_WRAP_MODE_DISABLE;
+//  hsram1.Init.WaitSignalActive = FSMC_WAIT_TIMING_BEFORE_WS;
+//  hsram1.Init.WriteOperation = FSMC_WRITE_OPERATION_ENABLE;
+//  hsram1.Init.WaitSignal = FSMC_WAIT_SIGNAL_DISABLE;
+//  hsram1.Init.ExtendedMode = FSMC_EXTENDED_MODE_DISABLE;
+//  hsram1.Init.AsynchronousWait = FSMC_ASYNCHRONOUS_WAIT_DISABLE;
+//  hsram1.Init.WriteBurst = FSMC_WRITE_BURST_DISABLE;
+//  /* Timing */
+//  Timing.AddressSetupTime = 0x02;
+//  Timing.AddressHoldTime = 0x00;
+//  Timing.DataSetupTime = 0x05;
+//  Timing.BusTurnAroundDuration = 0x00;
+//  Timing.CLKDivision = 0x00;
+//  Timing.DataLatency = 0x00;
+//  Timing.AccessMode = FSMC_ACCESS_MODE_B;
+//  /* ExtTiming */
+//
+//  if (HAL_SRAM_Init(&hsram1, &Timing, NULL) != HAL_OK)
+//  {
+//    Error_Handler( );
+//  }
+//
+//  /** Disconnect NADV
+//  */
+//
+//  __HAL_AFIO_FSMCNADV_DISCONNECTED();
+//
+//  /* USER CODE BEGIN FSMC_Init 2 */
+//
+//  /* USER CODE END FSMC_Init 2 */
+//}
+
 int main(void)
 {
 	HAL_Init();
@@ -182,6 +256,7 @@ int main(void)
 	// Initialize all configured peripherals */
 	MX_GPIO_Init();
 	MX_RTC_Init();
+//	MX_FSMC_Init();
 
 	/* Create one of the two tasks. Note that a real application should check
 	the return value of the xTaskCreate() call to ensure the task was created

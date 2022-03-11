@@ -62,7 +62,12 @@ FreeRTOS/queue.c \
 FreeRTOS/list.c \
 FreeRTOS/event_groups.c \
 FreeRTOS/stream_buffer.c \
-FreeRTOS/MemMang/heap_3.c
+FreeRTOS/MemMang/heap_3.c 
+
+
+#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.c \
+#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.c \
+#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.c
 
 
 
@@ -113,7 +118,9 @@ AS_DEFS =
 # C defines
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
--DSTM32F103xE
+-DSTM32F103xE \
+-DHAL_SRAM_MODULE_ENABLED \
+-DHAL_NOR_MODULE_ENABLED
 
 
 # AS includes
